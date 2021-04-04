@@ -1,8 +1,11 @@
 # BIPES: Block based Integrated Platform for Franzininho Wifi
 
 ![BIPES1](bipes_fran1.png)
+
 ![BIPES2](bipes_fran2.png)
+
 ![BIPES3](bipes_fran3.png)
+
 
 More information at the project website:
 
