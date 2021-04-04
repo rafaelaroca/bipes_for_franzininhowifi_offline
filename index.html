@@ -191,8 +191,8 @@
 				loadFileToElement('toolbox_esp8266.xml','toolbox');
 				Code.workspace.updateToolbox(document.getElementById('toolbox'));
 			}
-			if (dev == 'ESP32') {
-				document.getElementById('device_title').innerHTML = '<b>ESP32</b><br>';
+			if (dev == 'ESP32S2') {
+				document.getElementById('device_title').innerHTML = '<b>ESP32 S2</b><br>';
 				document.getElementById("device_img").src = "http://bipes.net.br/beta2/ui/devinfo/ESP32-Pinout.jpg";
 				//document.getElementById("toolbox")=document.getElementById("toolbox2");
 				//Code.reloadToolbox();
@@ -246,23 +246,7 @@
 	</script>
 		     Target device:
 			<select id="device_selector" onchange="changeDevice(this.value)">
-			  <option value="ESP8266">ESP8266</option>
-			  <option value="ESP32">ESP32</option>
-			  <option value="Nucleo">ST Nucleo (mBed)</option>
-			  <option value="BBBlack">Beagle Bone Black</option>
-			  <option value="PocketBeagle">Pocket Beagle</option>
-			  <option value="LinkIt Smart">LinkIt Smart</option>
-			  <option value="RPI1">Raspberry Pi 1</option>
-			  <option value="RPI2">Raspberry Pi 2</option>
-			  <option value="RPI3">Raspberry Pi 3</option>
-			  <option value="RPI4">Raspberry Pi 4</option>
-			  <option value="RPI0">Raspberry Pi Zero</option>
-			  <option value="RPI_Pico">Raspberry Pi Pico</option>
-			  <option value="UNO">Arduino UNO</option>
-			  <option value="MEGA">Arduino Mega</option>
-			  <option value="NANO">Arduino Nano</option>
-			  <option value="BBC">BBC Microbit</option>
-			  <option value="EV3">Lego EV3</option>
+			  <option value="ESP32S2">Franzininho Wifi</option>
 			</select>
 
               <button id="runButton" class="notext primary" title="...">
