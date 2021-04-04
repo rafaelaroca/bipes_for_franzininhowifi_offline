@@ -98,7 +98,7 @@ Blockly.Python['gpio_set'] = function(block) {
 
   Blockly.Python.definitions_['gpio_set' + x] = 'gpio' + x + ' = DigitalInOut(board.IO' + x + ') \n' + 'gpio' + x + '.direction = Direction.OUTPUT \n';
 
-  var code = 'gpio' + x + '.value(' + value_value + ')\n';
+  var code = 'gpio' + x + '.value = ' + value_value + '\n';
 
   return code;
 
