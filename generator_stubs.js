@@ -66,14 +66,40 @@ Blockly.Python['webrepl_setup'] = function(block) {
 
 
 
+Blockly.Python['LED'] = function(block) {
+  var value_pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+  var red = Blockly.Python.valueToCode(block, 'red', Blockly.Python.ORDER_ATOMIC);
+  var green = Blockly.Python.valueToCode(block, 'green', Blockly.Python.ORDER_ATOMIC);
+  var blue = Blockly.Python.valueToCode(block, 'blue', Blockly.Python.ORDER_ATOMIC);
+
+  Blockly.Python.definitions_['import_board'] = 'import board';
+  Blockly.Python.definitions_['import_neopixel'] = 'import neopixel_write';
+  Blockly.Python.definitions_['import_digitalio'] = 'import digitalio';
+
+  var x = value_pin.replace('(','').replace(')','');
+  Blockly.Python.definitions_['import_neopixelinit'] = 'pinNeoPixel = digitalio.DigitalInOut(board.NEOPIXEL)\npinNeoPixel.direction = digitalio.Direction.OUTPUT';
+  //Blockly.Python.definitions_['import_neopixelinit' + x] = 'pinNeoPixel = digitalio.DigitalInOut(' + x + ')\npinNeoPixel.direction = digitalio.Direction.OUTPUT';
+
+  var code = 'pixel = bytearray([' + red + ',' + green + ',' + blue + '])\nneopixel_write.neopixel_write(pinNeoPixel,pixel)\n';
+
+  return code;
+
+};
+
+
 Blockly.Python['gpio_set'] = function(block) {
   var value_pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
   var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  Blockly.Python.definitions_['import_machine'] = 'import machine';
-  Blockly.Python.definitions_['gpio_set'] = 'def gpio_set(pin,value):\n  if value >= 1:\n    machine.Pin(pin, machine.Pin.OUT).on()\n  else:\n    machine.Pin(pin, machine.Pin.OUT).off()';
 
-  var code = 'gpio_set(' + value_pin + ', ' + value_value + ')\n';
+  Blockly.Python.definitions_['import_board'] = 'import board';
+  Blockly.Python.definitions_['import_board_gpio'] = 'from digitalio import DigitalInOut, Direction, Pull ';
+
+  var x = value_pin.replace('(','').replace(')','');
+
+  Blockly.Python.definitions_['gpio_set' + x] = 'gpio' + x + ' = DigitalInOut(board.D' + x + ') \n' + 'gpio' + x + '.direction = Direction.OUTPUT \n';
+
+  var code = 'gpio' + x + '.value(' + value_value + ')\n';
+
   return code;
 
 };
@@ -150,13 +176,21 @@ Blockly.Python['adc'] = function(block) {
 
 Blockly.Python['gpio_get'] = function(block) {
   var value_pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-  Blockly.Python.definitions_['import_machine'] = 'import machine';
-  Blockly.Python.definitions_['import_pin'] = 'from machine import Pin';
+  var pullup = Blockly.Python.valueToCode(block, 'pullup', Blockly.Python.ORDER_ATOMIC);
+
+  Blockly.Python.definitions_['import_board'] = 'import board';
+  Blockly.Python.definitions_['import_board_gpio'] = 'from digitalio import DigitalInOut, Direction, Pull ';
+
   var x = value_pin.replace('(','').replace(')','');
 
-  Blockly.Python.definitions_['gpio_get' + x] = 'pIn' + x + '=Pin(' + x + ', Pin.IN)\n\n';
+  if (pullup == 'True') 
+	p = 'UP'
+  else
+	p = 'DOWN'
 
-  var code = 'pIn' + x + '.value()';
+  Blockly.Python.definitions_['gpio_get' + x] = 'gpio' + x + ' = DigitalInOut(board.D' + x + ') \n' + 'gpio' + x + '.direction = Direction.INPUT\n' + 'gpio' + x + '.pull = Pull.' + p;
+
+  var code = 'gpio' + x + '.value';
 
   return [code, Blockly.Python.ORDER_NONE];
 };

@@ -103,6 +103,8 @@
 
 	<script>
 
+	var dev = 'ESP32S2';
+
 	function loadFileToElement(filename, elementId)
 	{
 	    var xmlHTTP = new XMLHttpRequest();
@@ -121,58 +123,17 @@
 
 
   var pinout = {
-    'ESP8266': [
-      ['D0', "16"],
-      ['D1', "5"],
-      ['D2', "4"],
-      ['D3', "0"],
-      ['D4/LED', "2"],
-      ['D5', "14"],
-      ['D6', "12"],
-      ['D7', "13"],
-      ['D8', "15"],
-      ['RX', "3"],
-      ['TX', "1"],
-      ['SD3', "10"],
-      ['SD2', "9"],
-      ['SD1', "8"],
-      ['CMD', "11"],
-      ['SD0', "7"],
-      ['CLK', "6"]
-    ]
-  };
-
-
-  var pinout = {
-    'RPI_Pico': [
-      ['LED / GP25', "25"],
-      ['Pin 1 / GP0', "0"],
-      ['Pin 2 / GP1', "1"],
-      ['Pin 4 / GP2', "4"],
-      ['Pin 5 / GP3', "3"],
-      ['Pin 6 / GP4', "4"],
-      ['Pin 7 / GP5', "5"],
-      ['Pin 9 / GP6', "6"],
-      ['Pin 10 / GP7', "7"],
-      ['Pin 11 / GP8', "8"],
-      ['Pin 12 / GP9', "9"],
-      ['Pin 14 / GP10', "10"],
-      ['Pin 15 / GP11', "11"],
-      ['Pin 16 / GP12', "12"],
-      ['Pin 17 / GP13', "13"],
-      ['Pin 19 / GP14', "14"],
-      ['Pin 20 / GP15', "15"],
-      ['Pin 21 / GP16', "16"],
-      ['Pin 22 / GP17', "17"],
-      ['Pin 24 / GP18', "18"],
-      ['Pin 25 / GP19', "19"],
-      ['Pin 26 / GP20', "20"],
-      ['Pin 27 / GP21', "21"],
-      ['Pin 29 / GP22', "22"],
-      ['Pin 26 / ADC0 / GP26', "26"],
-      ['Pin 27 / ADC1 / GP27', "27"],
-      ['Pin 28 / ADC2 / GP28', "28"],
-      ['Internal Temp Sensor / ADC3', "4"]
+    'ESP32S2': [
+      ['D0', "0"],
+      ['D1', "1"],
+      ['D2', "2"],
+      ['D3', "3"],
+      ['D4', "4"],
+      ['D5', "5"],
+      ['D6', "6"],
+      ['D7', "7"],
+      ['D8', "8"],
+      ['D9', "9"],
     ]
   };
 
@@ -356,7 +317,7 @@
 
   <div id="content_device" class="content">
 	  <center>
-		  <label id="device_title"><b>ESP8266</b><br></label>
+		  <label id="device_title"><b>ESP32 S2</b><br></label>
 	  <br>
 	  <br>
 
@@ -828,7 +789,7 @@ Device file manager
   <category name="Machine">
       <label text="Machine"></label>
       <category name="CPU">
-      <label text="ESP8266 CPU"></label>
+      <label text="ESP32 S2 CPU"></label>
 
     <block type="get_freq"></block>
     <block type="set_freq">
@@ -849,7 +810,46 @@ Device file manager
       </category>
     
       <category name="In/Out Pins">
+
+
       <label text="In/Out Pins"></label>
+
+
+    <block type="LED">
+
+      <value name="pin">
+	 <shadow type="math_number">
+          <field name="NUM">18</field>
+        </shadow>
+      </value>
+
+
+      <value name="red">
+	 <shadow type="math_number">
+          <field name="NUM">255</field>
+        </shadow>
+      </value>
+
+
+      <value name="green">
+	 <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+
+
+      <value name="blue">
+	 <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+
+
+
+    </block>
+
+
+
     <block type="gpio_set">
       <value name="pin">
         <shadow type="pinout">
@@ -869,6 +869,12 @@ Device file manager
           <field name="PIN"></field>
         </shadow>
       </value>
+    <value name="pullup">
+        <shadow type="logic_boolean">
+          <field name="BOOL"></field>
+        </shadow>
+      </value>
+
     </block>
     <block type="pinout"></block>
 
