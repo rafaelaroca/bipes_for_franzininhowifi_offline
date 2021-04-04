@@ -96,7 +96,7 @@ Blockly.Python['gpio_set'] = function(block) {
 
   var x = value_pin.replace('(','').replace(')','');
 
-  Blockly.Python.definitions_['gpio_set' + x] = 'gpio' + x + ' = DigitalInOut(board.D' + x + ') \n' + 'gpio' + x + '.direction = Direction.OUTPUT \n';
+  Blockly.Python.definitions_['gpio_set' + x] = 'gpio' + x + ' = DigitalInOut(board.IO' + x + ') \n' + 'gpio' + x + '.direction = Direction.OUTPUT \n';
 
   var code = 'gpio' + x + '.value(' + value_value + ')\n';
 
@@ -188,7 +188,7 @@ Blockly.Python['gpio_get'] = function(block) {
   else
 	p = 'DOWN'
 
-  Blockly.Python.definitions_['gpio_get' + x] = 'gpio' + x + ' = DigitalInOut(board.D' + x + ') \n' + 'gpio' + x + '.direction = Direction.INPUT\n' + 'gpio' + x + '.pull = Pull.' + p;
+  Blockly.Python.definitions_['gpio_get' + x] = 'gpio' + x + ' = DigitalInOut(board.IO' + x + ') \n' + 'gpio' + x + '.direction = Direction.INPUT\n' + 'gpio' + x + '.pull = Pull.' + p;
 
   var code = 'gpio' + x + '.value';
 
