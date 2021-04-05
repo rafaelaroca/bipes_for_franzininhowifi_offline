@@ -124,27 +124,32 @@
 
   var pinout = {
     'ESP32S2': [
-      ['D0 / Switch', "0"],
-      ['D1', "1"],
-      ['D2', "2"],
-      ['D3', "3"],
-      ['D4', "4"],
-      ['D5', "5"],
-      ['D6', "6"],
-      ['D7', "7"],
-      ['D8', "8"],
-      ['D9', "9"],
-      ['D10', "10"],
-      ['D11', "11"],
-      ['D12', "12"],
-      ['D13', "13"],
-      ['D14', "14"],
-      ['D15', "15"],
-      ['D16', "16"],
-      ['D17', "17"],
-      ['D18 / LED', "18"],
-      ['D19', "19"],
-      ['D20', "20"],
+      ['IO0/Switch', "0"],
+      ['IO1/AN1', "1"],
+      ['IO2/AN2', "2"],
+      ['IO3/AN3', "3"],
+      ['IO4/AN4', "4"],
+      ['IO5/AN5', "5"],
+      ['IO6/AN6', "6"],
+      ['IO7/AN7', "7"],
+      ['IO8/AN8', "8"],
+      ['IO9/AN9', "9"],
+      ['IO10/AN10', "10"],
+      ['IO11/AN11', "11"],
+      ['IO12/AN12', "12"],
+      ['IO13/AN13', "13"],
+      ['IO14/AN14', "14"],
+      ['IO15/AN15', "15"],
+      ['IO16/AN16', "16"],
+      ['IO17/AN17', "17"],
+      ['IO18/LED', "18"],
+      ['IO19/AN19', "19"],
+      ['IO20/AN20', "20"],
+      ['IO21', "21"],
+      ['IO22', "22"],
+      ['IO23', "23"],
+      ['IO24', "23"],
+      ['IO25', "23"],
     ]
   };
 
@@ -328,11 +333,13 @@
 
   <div id="content_device" class="content">
 	  <center>
-		  <label id="device_title"><b>ESP32 S2</b><br></label>
+		  <label id="device_title"><b>Franzininho Wifi - ESP32 S2</b><br></label>
 	  <br>
 	  <br>
 
-	  <label id="device_desc">Description about chosen device</label>
+	  <img src=https://www.embarcados.com.br/wp-content/uploads/2020/12/franzininho-wifi-pcb-back.png>
+	  <br>
+	  <label id="device_desc">More info: <a href=https://github.com/Franzininho/Franzininho-WIFI>https://github.com/Franzininho/Franzininho-WIFI</a></label>
 	  </center>
 
   </div>
@@ -3450,17 +3457,7 @@ function runPythonCode(pCodeIn) {
 
 function runPython(evt) {
 
-	var devSel = document.getElementById("device_selector").value;
 	
-	if (devSel == "UNO") {
-		alert("Generating code for Arduino Uno");
-		var code = Blockly.Arduino.workspaceToCode(Code.workspace);
-
-		return;
-	}
-
-
-
 	/*
 	if (!connected) {
 		alert('Must be connected to run code');
@@ -3470,6 +3467,12 @@ function runPython(evt) {
 
         var code = Blockly.Python.workspaceToCode(Code.workspace);
         var textArray = code.split(/\r\n|\r|\n/);
+	
+
+	//Reset before run (workaround)
+	serialWrite('\x04');
+	sleep(50);
+	serialWrite('\x03');
 
         console.log(code);
         //ws.send('\x05');
@@ -3892,9 +3895,9 @@ async function getReader() {
       }
 
       function sendSerialHello() {
-	serialWrite("\nmachine.soft_reset()\n\n");
-	serialWrite('\x13');
-	serialWrite('\x10');
+	//serialWrite("\nmachine.soft_reset()\n\n");
+	serialWrite('\x03');
+	serialWrite('\x03');
 	}
 
 </script>

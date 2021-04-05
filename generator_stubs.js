@@ -167,10 +167,16 @@ Blockly.Python['adc_pico'] = function(block) {
 
 
 Blockly.Python['adc'] = function(block) {
-  Blockly.Python.definitions_['import_machine'] = 'import machine';
+  Blockly.Python.definitions_['import_board'] = 'import board';
+  Blockly.Python.definitions_['import_analog'] = 'import analogio';
+
   var value_pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-  Blockly.Python.definitions_['init_adc'] = 'adc' + value_pin + '=machine.ADC(' + value_pin + ')';
-  var code = 'adc' + value_pin + '.read()';
+  var x = value_pin.replace('(','').replace(')','');
+
+  Blockly.Python.definitions_['init_adc' + x] = 'adc' + x + ' = analogio.AnalogIn(board.IO' + x + ')';
+
+  var code = 'adc' + x + '.value';
+
   return [code, Blockly.Python.ORDER_NONE];
 };
 
